@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(MODULE_NAME "websocket")
+set(MODULE_NAME "ws")
 # 设置项目名为当前目录名
 project(${MODULE_NAME})
 
@@ -35,12 +35,21 @@ set(YLIB ${CMAKE_INSTALL_PREFIX}/../ylib)
 set(FASTWEB ${CMAKE_INSTALL_PREFIX}/../fastweb)
 
 # 包含路径
+if(MSVC)
 include_directories(
 	${YLIB}/include
 	${FASTWEB}/include
 	${FASTWEB}/include/lua
 )
-
+else()
+include_directories(
+	/usr/local/include/ylib
+	/usr/local/include/fastweb
+	../sol2/include
+	/usr/local/include
+)
+endif()
+add_definitions(-DfPIC)
 # 添加共享库
 add_library(${MODULE_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
@@ -68,8 +77,7 @@ else()
 			hpsocket
 			ylib
 			crypto
-			lua5.3
-			mysqlcppconn
+			lua
 			pthread
 	)
 

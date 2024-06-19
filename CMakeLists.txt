@@ -33,23 +33,22 @@ set(CMAKE_INSTALL_ALWAYS_COPY TRUE)
 
 set(YLIB ${CMAKE_INSTALL_PREFIX}/../ylib)
 set(FASTWEB ${CMAKE_INSTALL_PREFIX}/../fastweb)
-
 # 包含路径
 if(MSVC)
-include_directories(
-	${YLIB}/include
-	${FASTWEB}/include
-	${FASTWEB}/include/lua
-)
+	include_directories(
+		${YLIB}/include
+		${FASTWEB}/include
+		${FASTWEB}/include/lua
+	)
+	add_definitions(/bigobj)
 else()
-include_directories(
-	/usr/local/include/ylib
-	/usr/local/include/fastweb
-	../sol2/include
-	/usr/local/include
+	include_directories(
+		/usr/local/include/ylib
+		/usr/local/include/fastweb
+		/usr/local/include
+	add_definitions(-DfPIC)
 )
 endif()
-add_definitions(-DfPIC)
 # 添加共享库
 add_library(${MODULE_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})
 

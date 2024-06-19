@@ -45,9 +45,8 @@ else()
 	include_directories(
 		/usr/local/include/ylib
 		/usr/local/include/fastweb
-		/usr/local/include
+		/usr/local/include)
 	add_definitions(-DfPIC)
-)
 endif()
 # 添加共享库
 add_library(${MODULE_NAME} SHARED ${HEADER_FILES} ${SOURCE_FILES})

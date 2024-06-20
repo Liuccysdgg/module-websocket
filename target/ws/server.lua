@@ -39,7 +39,7 @@ end
 FUNCTION： 取最后错误描述
 --]]
 function M:last_error()
-    self.module:last_error()
+    return self.module:last_error()
 end
 
 --[[

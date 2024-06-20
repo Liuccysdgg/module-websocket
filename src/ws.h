@@ -23,7 +23,8 @@ namespace module
 		void stop();
 		void exec(int timeout);
 		std::string last_error();
-		bool send(int conn,std::string_view value);
+		bool send(int64 conn,std::string_view value);
+		void disconn(int64 conn);
 
 		static void regist(sol::state* lua);
 	private:

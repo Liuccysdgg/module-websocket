@@ -97,7 +97,12 @@ std::string module::ws_server::last_error()
     return m_lastErrorDesc;
 }
 
-bool module::ws_server::send(int conn, std::string_view value)
+void module::ws_server::disconn(int64 conn)
+{
+    ::network::http::wsserver::disconn(conn);
+}
+
+bool module::ws_server::send(int64 conn, std::string_view value)
 {
     return ::network::http::wsserver::send(conn, value);
 }
@@ -112,7 +117,8 @@ void module::ws_server::regist(sol::state* lua)
         "last_error", &module::ws_server::last_error,
         "self", &module::ws_server::self,
         "exec", &module::ws_server::exec,
-        "send", &module::ws_server::send
+        "send", &module::ws_server::send,
+        "disconn", &module::ws_server::disconn
     );
 }
 
